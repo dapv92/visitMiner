@@ -3,6 +3,7 @@ visitsCounts = 0
 visits = 1000
 urls = "https://bit.ly/3l8JzVs"
 tVisits = 30
+tVisitsTO = tVisits + 10
 x = 1
 procesos = []
 inicio = time.time()
@@ -24,7 +25,7 @@ if __name__ == '__main__':
             proces.start()
         print("Procesos iniciados")
         for fin in procesos:
-            fin.join(timeout=tVisits) 
+            fin.join(timeout=tVisitsTO) 
             if fin.is_alive():
                 fin.terminate()
         print("fin de proceso")
