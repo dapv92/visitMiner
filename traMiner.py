@@ -3,10 +3,10 @@ from function import *
 # Configurables
 # #################### 
 # ChromeDriver
-chromeDriver = "c:/chromedriver.exe"
+chromeDriver = "h:/chromedriver.exe"
 # urls = getRutas("C:/Users/Administrador/Desktop/wsLiberty/rutas.csv")
 urls = "https://jobworkerai.com"
-userAgent = getRutas("C:/Users/Administrador/Desktop/wsLiberty/userAgent.csv")
+userAgent = getRutas("userAgent.csv")
 totalViews = 1000
 tiempoVisita = 10
 # ####################
