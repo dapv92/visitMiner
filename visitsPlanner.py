@@ -1,6 +1,6 @@
 from function import *
 visitsCounts = 0
-visits = 30
+visits = 1000
 urls = "https://bit.ly/3l8JzVs"
 tVisits = 30
 x = 1
