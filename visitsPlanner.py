@@ -1,6 +1,6 @@
 from function import *
 visitsCounts = 0
-visits = 100
+visits = 1000
 urls = "https://bit.ly/3l8JzVs"
 tVisits = 30
 x = 1
@@ -36,9 +36,10 @@ if __name__ == '__main__':
         visitsCounts += int(numProcess)
         ahora = time.time()
         tActual = (ahora - inicio) / 60
-        print("Visitas Actuales: ", visitsCounts)
+        print("Visitas Actuales: " + str(visitsCounts) + " de: " + str(visits))
         print("Tiempo Actual: ", tActual)
         if visitsCounts >= visits:
             break
 fin = time.time()
 tiempoFin = (fin - inicio) / 60
+finI = input("el programa ha finalizado")
