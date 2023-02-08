@@ -1,4 +1,5 @@
 from function import *
+
 visitsCounts = 0
 visits = 1000
 urls = "https://bit.ly/3l8JzVs"
@@ -41,6 +42,8 @@ if __name__ == '__main__':
         tActual = (ahora - inicio) / 60
         print("Visitas Actuales: " + str(visitsCounts) + " de: " + str(visits))
         print("Tiempo Actual: ", tActual)
+        # Cerramos las ventanas de chrome que queden
+        os.system("taskkill /f /im chrome.exe")
         if visitsCounts >= visits:
             finT = input("el programa va a finalizar")
             break
