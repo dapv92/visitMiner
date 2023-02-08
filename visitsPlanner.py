@@ -8,10 +8,11 @@
 
 from function import *
 from multiprocessing import Process
-numProcess = input("Cuantos navegadores desea ejecutar simultaneamente: ")
 x = 1
 if __name__ == '__main__':
-    while x <= numProcess:
+    numProcess = input("Cuantos navegadores desea ejecutar simultaneamente: ")
+    processNum = int(numProcess)
+    while x <= processNum:
         proceso = Process(target=visitMiner)
         proceso.start()
         x += 1

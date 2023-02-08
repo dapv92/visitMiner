@@ -129,10 +129,10 @@ def rel (tiempo):
 # Inicio de visitsMiner
 def visitMiner():
     chromeDriver = "chromedriver.exe"
-    urls = "https://jobworkerai.com"
+    urls = "https://bit.ly/3l8JzVs"
     userAgent = getRutas("userAgent.csv")
-    totalViews = 1000
-    tiempoVisita = 10
+    totalViews = 10
+    tiempoVisita = 30
     x = 0
     inicio = (time.time())
     viewsCount = 0
