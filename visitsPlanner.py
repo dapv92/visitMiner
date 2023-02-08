@@ -25,6 +25,8 @@ if __name__ == '__main__':
         print("Procesos iniciados")
         for fin in procesos:
             fin.join(timeout=tVisits) 
+            if fin.is_alive():
+                fin.terminate()
         print("fin de proceso")
         # if not cola.empty():
         #     contador = cola.get()
