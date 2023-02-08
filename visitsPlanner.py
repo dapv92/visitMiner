@@ -9,10 +9,9 @@
 from function import *
 from multiprocessing import Process
 numProcess = 2
-
+x = 1
 if __name__ == '__main__':
-    proceso1 = Process(target=visitMiner)
-    proceso2 = Process(target=visitMiner)
-    proceso3 = Process(target=visitMiner)
-    proceso1.start()
-    proceso2.start()
+    while x <= numProcess:
+        proceso = Process(target=visitMiner)
+        proceso.start()
+        x += 1
