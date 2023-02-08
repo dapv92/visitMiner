@@ -147,7 +147,6 @@ def visitMiner():
         chrome = webdriver.Chrome(chromeDriver, chrome_options=chrome_options)
         try:
             chrome.get(urls)
-            chrome.maximize_window()
         except Exception as e:
             print("No se ha podido abrir la pagina: ", e)
             pass
