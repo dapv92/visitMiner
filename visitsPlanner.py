@@ -2,7 +2,8 @@ from function import *
 visitsCounts = 0
 visits = 5
 urls = "https://bit.ly/3l8JzVs"
-tVisits = 10
+tVisitsI = input("cantidad de visitas: ")
+tVisits = int(tVisitsI)
 x = 1
 procesos = []
 inicio = time.time()
