@@ -9,6 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from pynput.mouse import Controller, Button
 mouse = Controller()
 from pynput.keyboard import Key, Controller
+from multiprocessing import Process, Queue
 keyBoart = Controller()
 
 # Funcion para borrar dns
@@ -127,41 +128,31 @@ def rel (tiempo):
     print("Tiempo Total: " + str(hora) + ":" + str(minutos)+ ":" + str(seg))
 # Fin Funcion para convertir segundos en reloj
 # Inicio de visitsMiner
-def visitMiner():
+def visitMiner(url, tVisits):
     chromeDriver = "chromedriver.exe"
-    urls = "https://bit.ly/3l8JzVs"
+    # urls = "https://bit.ly/3l8JzVs"
+    urls = url
     userAgent = getRutas("userAgent.csv")
-    totalViews = 10
-    tiempoVisita = 30
-    x = 0
-    inicio = (time.time())
-    viewsCount = 0
-    while True:
-        userChange = random.sample(userAgent, 1) 
-        userChange = str(userChange)
-        userChange = userChange[2:-2]
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_experimental_option("excludeSwitches",['enable-automation'])
-        chrome_options.add_argument("--incognito")
-        chrome_options.add_argument("user-agent="+userChange)
-        chrome = webdriver.Chrome(chromeDriver, chrome_options=chrome_options)
-        try:
-            chrome.get(urls)
-        except Exception as e:
-            print("No se ha podido abrir la pagina: ", e)
-            pass
-        finally:
-            x += 1
-        time.sleep(tiempoVisita)
-        chrome.quit()
-        final = time.time()
-        ahora2 = round((final - inicio) / 60)
-        print("Tiempo Transcurrido: " + str(ahora2))
-        print("Visita "+str(x)+" de " + str(totalViews) + " | " + str((x / totalViews) * 100) + "%")
-        print("------------------")
-        if x >= totalViews:
-            break
-    finalTotal = time.time()
-    finalTotal1 = round((finalTotal - inicio) / 60)
-    print("Tiempo Total: " + str(finalTotal1))
+    tiempoVisita = tVisits
+    userChange = random.sample(userAgent, 1) 
+    userChange = str(userChange)
+    userChange = userChange[2:-2]
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_experimental_option("excludeSwitches",['enable-automation'])
+    chrome_options.add_argument("--incognito")
+    chrome_options.add_argument("user-agent="+userChange)
+    chrome = webdriver.Chrome(chromeDriver, chrome_options=chrome_options)
+    try:
+        chrome.get(urls)
+        # añadimos el contador a la cola
+        # contador = cola.get()
+        # contador += 1
+        # cola.put(contador)
+    except Exception as e:
+        print("No se ha podido abrir la pagina: ", e)
+        pass
+    time.sleep(tiempoVisita)
+    # time.sleep((random.randint(1, 9))/10)
+
+    chrome.close()
 # fin de visitsMiner
