@@ -8,7 +8,7 @@
 
 from function import *
 from multiprocessing import Process
-numProcess = 2
+numProcess = input("Cuantos navegadores desea ejecutar simultaneamente: ")
 x = 1
 if __name__ == '__main__':
     while x <= numProcess:
