@@ -1,8 +1,8 @@
 from function import *
 visitsCounts = 0
-visits = 5
+visits = 100
 urls = "https://bit.ly/3l8JzVs"
-tVisits = 100
+tVisits = 30
 x = 1
 procesos = []
 inicio = time.time()
