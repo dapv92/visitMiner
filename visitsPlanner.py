@@ -1,15 +1,15 @@
 from function import *
-
-visitsCounts = 0
-visits = 1000
-urls = "https://bit.ly/3l8JzVs"
-tVisits = 30
-tVisitsTO = tVisits + 10
-x = 1
-procesos = []
 inicio = time.time()
 if __name__ == '__main__':
-    numProcess = input("Cuantos navegadores desea ejecutar simultaneamente: ")
+    visitsCounts = 0
+    x = 1
+    procesos = []
+    datos = visitData()
+    visits = int(datos[0])
+    tVisits = int(datos[1])
+    urls = str(datos[2])
+    tVisitsTO = tVisits + 10
+    numProcess = 15
     processNum = int(numProcess)
     while True:
         # cola = Queue()

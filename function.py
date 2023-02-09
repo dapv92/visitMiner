@@ -2,6 +2,9 @@ import socket
 import pandas as pd
 from selenium import webdriver
 import time, os, random
+from time import sleep as s
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -11,6 +14,80 @@ mouse = Controller()
 from pynput.keyboard import Key, Controller
 from multiprocessing import Process, Queue
 keyBoart = Controller()
+
+# Funciones de selección
+# Select
+def selectXpath (intentos, xpath, chrome):
+    # try:
+    elemento = WebDriverWait(chrome, intentos).until(EC.presence_of_element_located((By.XPATH ,xpath)))
+    return elemento
+    # except Exception as e:
+        # print("No se ha podido seleccionar el elemento: ", str(e))
+        # pass
+# Select CSS
+def selectCSS (intentos, CSS, chrome):
+    # try:
+    elemento = WebDriverWait(chrome, intentos).until(EC.presence_of_element_located((By.CSS_SELECTOR ,CSS)))
+    return elemento
+def selectCSSOther (intentos, CSS, chrome, element):
+    # try:
+    elemento = WebDriverWait(element, intentos).until(EC.presence_of_element_located((By.CSS_SELECTOR ,CSS)))
+    return elemento
+# SelectAll CSS
+def selectCSSAll (intentos, CSS, chrome):
+    # try:
+    elemento = WebDriverWait(chrome, intentos).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR ,CSS)))
+    return elemento
+    # except Exception as e:
+    #     print("No se ha podido seleccionar el elemento: ", str(e))
+    #     pass
+# Select CSS
+def selectID (intentos, ID, chrome):
+    # try:
+    elemento = WebDriverWait(chrome, intentos).until(EC.presence_of_element_located((By.ID ,ID)))
+    return elemento
+    # except Exception as e:
+    #     print("No se ha podido seleccionar el elemento: ", str(e))
+    #     pass
+# click
+def clickXpath (intentos, xpath, chrome):
+    # try:
+    elemento = selectXpath (intentos, xpath, chrome)
+    elemento.click()
+    # except Exception as e:
+    #     print("No se ha podido hacer click: ", str(e))
+    #     pass
+# click id
+def clickID (intentos, id, chrome):
+    # try:
+    elemento = selectID (intentos, id, chrome)
+    elemento.click()
+    # except Exception as e:
+    #     print("No se ha podido hacer click: ", str(e))
+    #     pass
+def clickCSS (intentos, CSS, chrome):
+    # try:
+    elemento = selectCSS (intentos, CSS, chrome)
+    elemento.click()
+    # except Exception as e:
+    #     print("No se ha podido hacer click: ", str(e))
+    #     pass
+# Envio de letras por xpath 
+def keysXpath (intentos, xpath, keys,  chrome):
+    # try:
+    elemento = selectXpath (intentos, xpath, chrome)
+    elemento.send_keys(keys)
+    # except Exception as e:
+    #     print("No se ha podido poner el texto: ", str(e))
+    #     pass
+# Envio de letras por css
+def keysCSS (intentos, CSS, keys,  chrome):
+    # try:
+    elemento = selectCSS (intentos, CSS, chrome)
+    elemento.send_keys(keys)
+    # except Exception as e:
+    #     print("No se ha podido poner el texto: ", str(e))
+    #     pass
 
 # Funcion para borrar dns
 def dnsFlush ():
@@ -144,15 +221,52 @@ def visitMiner(url, tVisits):
     chrome = webdriver.Chrome(chromeDriver, chrome_options=chrome_options)
     try:
         chrome.get(urls)
-        # añadimos el contador a la cola
-        # contador = cola.get()
-        # contador += 1
-        # cola.put(contador)
     except Exception as e:
         print("No se ha podido abrir la pagina: ", e)
         pass
     time.sleep(tiempoVisita)
-    # time.sleep((random.randint(1, 9))/10)
-
     chrome.close()
 # fin de visitsMiner
+# Función para buscar las solicitudes de visitas
+def visitData ():
+    chromeDriver = "chromedriver.exe"
+    # urls = "https://bit.ly/3l8JzVs"
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_experimental_option("excludeSwitches",['enable-automation'])
+    chrome = webdriver.Chrome(chromeDriver, chrome_options=chrome_options)
+    try:
+        chrome.get("https://jobworkerai.com/zybi/procesadorVisitas.php?prq=Pr0yectos432")
+    except Exception as e:
+        print("No se ha podido abrir pagina", e)
+    
+    # Cogemos los datos
+    # Definimos las variables necesarias
+    data = selectCSSAll(10, ".process", chrome)
+    for dat in data:
+        visitsV = selectCSSOther (10, ".visits", chrome, dat).text
+        visitsDone = selectCSSOther (10, ".visitsDone", chrome, dat).text
+        id_visitsRequest = selectCSSOther (10, ".id_visitsRequest", chrome, dat).text
+        print(visitsV)
+        print(visitsDone)
+        if visitsDone >= visitsV:
+             chrome.get("https://jobworkerai.com/zybi/visitsDone.php?prq=Pr0yectos432&rvId="+id_visitsRequest)
+    dataP = selectCSSAll(10, ".process", chrome)
+    visitsVP = selectCSSOther (10, ".visits", chrome, dataP[0]).text
+    idVP = selectCSSOther (10, ".id_visitsRequest", chrome, dataP[0]).text
+    urlVP = "https://jobworkerai.com/zybi/visitsCount.php?isd="+str(idVP)
+    tiempoVP = selectCSSOther (10, ".tiempoV", chrome, dataP[0]).text
+    visits1 = int(visitsVP)
+    tVisits1 = 0
+    if tiempoVP == "1": tVisits1 = 30
+    if tiempoVP == "2": tVisits1 = 60
+    if tiempoVP == "3": tVisits1 = 90
+    if tiempoVP == "4": tVisits1 = 120
+    # print(visits)
+    # print(tVisits)
+        # id_creator = selectCSSOther (10, ".id_creator", chrome, dat).text
+        # url = selectCSSOther (10, ".url", chrome, dat).text
+        # fecha1 = selectCSSOther (10, ".fecha", chrome, dat).text
+        # hora = selectCSSOther (10, ".hora", chrome, dat).text
+        # estado = selectCSSOther (10, ".estado", chrome, dat).text
+    chrome.quit()
+    return [visits1, tVisits1, urlVP]
