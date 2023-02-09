@@ -1,17 +1,17 @@
 from function import *
 inicio = time.time()
 if __name__ == '__main__':
-    visitsCounts = 0
-    x = 1
-    procesos = []
-    datos = visitData()
-    visits = int(datos[0])
-    tVisits = int(datos[1])
-    urls = str(datos[2])
-    tVisitsTO = tVisits + 10
-    numProcess = 15
-    processNum = int(numProcess)
     while True:
+        visitsCounts = 0
+        x = 1
+        procesos = []
+        datos = visitData()
+        visits = int(datos[0])
+        tVisits = int(datos[1])
+        urls = str(datos[2])
+        tVisitsTO = tVisits + 10
+        numProcess = 15
+        processNum = int(numProcess)
         # cola = Queue()
         # cola.put(visitsCounts)
         # definimos cantidad de procesos
