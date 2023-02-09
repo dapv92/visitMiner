@@ -18,12 +18,14 @@ if __name__ == '__main__':
         while x <= processNum:
             proceso1 = Process(target=visitMiner, args=(urls, tVisits,))
             procesos.append(proceso1)
-            rtime = random.randint(1, 9)/10
-            time.sleep(rtime)
             x += 1
         # Iniciamos procesor
         for proces in procesos:
             proces.start()
+            rtime1 = int(random.randint(10, 60))
+            rtime = rtime1 / 100
+            print(rtime)
+            time.sleep(rtime)
         print("Procesos iniciados")
         for fin in procesos:
             fin.join(timeout=tVisitsTO) 

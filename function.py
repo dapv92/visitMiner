@@ -246,8 +246,6 @@ def visitData ():
         visitsV = selectCSSOther (10, ".visits", chrome, dat).text
         visitsDone = selectCSSOther (10, ".visitsDone", chrome, dat).text
         id_visitsRequest = selectCSSOther (10, ".id_visitsRequest", chrome, dat).text
-        print(visitsV)
-        print(visitsDone)
         # if visitsDone >= visitsV:
         #      chrome.get("https://jobworkerai.com/zybi/visitsDone.php?prq=Pr0yectos432&rvId="+id_visitsRequest)
     dataP = selectCSSAll(10, ".process", chrome)
