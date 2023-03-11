@@ -29,14 +29,28 @@ def selectCSS (intentos, CSS, chrome):
     # try:
     elemento = WebDriverWait(chrome, intentos).until(EC.presence_of_element_located((By.CSS_SELECTOR ,CSS)))
     return elemento
+# CSS others
 def selectCSSOther (intentos, CSS, chrome, element):
     # try:
     elemento = WebDriverWait(element, intentos).until(EC.presence_of_element_located((By.CSS_SELECTOR ,CSS)))
+    return elemento
+# XPATH others
+def selectXPATHOther (intentos, XPATH, chrome, element):
+    # try:
+    elemento = WebDriverWait(element, intentos).until(EC.presence_of_element_located((By.XPATH ,XPATH)))
     return elemento
 # SelectAll CSS
 def selectCSSAll (intentos, CSS, chrome):
     # try:
     elemento = WebDriverWait(chrome, intentos).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR ,CSS)))
+    return elemento
+    # except Exception as e:
+    #     print("No se ha podido seleccionar el elemento: ", str(e))
+    #     pass
+# SelectAll XPATH
+def selectXpathAll (intentos, xpath, chrome):
+    # try:
+    elemento = WebDriverWait(chrome, intentos).until(EC.presence_of_all_elements_located((By.XPATH ,xpath)))
     return elemento
     # except Exception as e:
     #     print("No se ha podido seleccionar el elemento: ", str(e))
